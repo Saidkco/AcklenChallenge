@@ -33,8 +33,6 @@
     <script defer src="https://www.gstatic.com/firebasejs/7.23.0/firebase-auth.js"></script>
 </head>
 
-
-
 <body onload="EvaluarReunion2()">
 
 <!-- Modal -->
@@ -91,7 +89,7 @@
                         </div>
                         <div class="input-group">
                             <div class="rs-select2 js-select-simple select--no-search">
-                                <select name="dia" id="Dia" onchange="EvaluarReunion()"required>
+                                <select name="dia" id="Dia" onchange="CargarSillas()"required>
                                     <option disabled="disabled" value="" selected="selected" value="0">Dia y Hora</option>
                                    <!--<option value="D9am">Domingo 9:00 AM</option>
                                     <option value="J9pm">Jueves 9 pm</option>
@@ -101,18 +99,18 @@
                             </div>
                         </div>
 
-                        <div class="input-group">
+                        <!--<div class="input-group">
                             <div class="rs-select2 js-select-simple select--no-search">
                                 <select name="bloque" id="Bloque" onchange="CargarSillas()" required>
                                     <option disabled="disabled" value="" selected="selected" required>Seleccionar Bloque</option>
                                    <!--<option value="A">Bloque A</option>
                                     <option value="B">Bloque B</option>
                                     <option value="C">Bloque C</option>
-                                    <option value="D">Bloque D</option>-->
+                                    <option value="D">Bloque D</option>
                                 </select>
                                 <div class="select-dropdown"></div>
                             </div>
-                        </div>
+                        </div>-->
 
                         <div class="input-group">
                             <div class="rs-select2 js-select-simple select--no-search">
@@ -130,7 +128,7 @@
                             <input class="input--style-3" type="text" required="" placeholder="Teléfono" name="telefono" id="Telefono">
                         </div>
 
-                        <div class="input-group">
+                        <!--<div class="input-group">
                             <div class="rs-select2 js-select-simple select--no-search">
                                 <select name="Sintomas" id="Sintomas" required>
                                     <option disabled="disabled" value="" selected="selected">Ha tenido sintomas de COVID-19</option>
@@ -140,7 +138,7 @@
                                 </select>
                                 <div class="select-dropdown"></div>
                             </div>
-                        </div>
+                        </div>-->
                         
 
                         <div class="p-t-10">

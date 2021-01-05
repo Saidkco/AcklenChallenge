@@ -90,8 +90,8 @@ function Reiniciar(){
     }
 
 });
-
 }
+
 
 function Eliminar(id) {
     db.collection("Reunion").doc(id).delete().then(function () {

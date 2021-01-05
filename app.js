@@ -15,24 +15,22 @@ var fire = firebase.initializeApp(firebaseConfig);
 var db = fire.firestore();
 
 function buscarID() {
-    var identidad = document.getElementById("Identidad").value;
+    let identidad = document.getElementById("Identidad").value;
 }
 
 function Guardar() {
-    var nombre = document.getElementById("Nombre").value;
-    var apellido = document.getElementById("Apellido").value;
-    var edad = document.getElementById("Edad").value;
-    var identidad = document.getElementById("Identidad").value;
-    var dia = document.getElementById("Dia").value;
-    var bloque = document.getElementById("Bloque").value;
-    var silla = document.getElementById("Silla").value;
-    var telefono = document.getElementById("Telefono").value;
-    var sintomas = document.getElementById("Sintomas").value;
-    var banderaID = 0;
+    let nombre = document.getElementById("Nombre").value;
+    let apellido = document.getElementById("Apellido").value;
+    let edad = document.getElementById("Edad").value;
+    let identidad = document.getElementById("Identidad").value;
+    let dia = document.getElementById("Dia").value;
+    let silla = document.getElementById("Silla").value;
+    let telefono = document.getElementById("Telefono").value;
+    let banderaID = 0;
 
     db.collection("Reunion").get().then((querySnapshot) => {
-        var id = 0;
-        var idsOcupados = new Array();
+        let id = 0;
+        let idsOcupados = new Array();
         //var idsOcupados = new Array();
         //Vamos a recorrer para asignar al arreglo
         querySnapshot.forEach((doc) => {
@@ -60,10 +58,8 @@ function Guardar() {
                 Edad: edad,
                 Identidad: identidad,
                 Dia: dia,
-                Bloque: bloque,
                 Silla: silla,
                 Telefono: telefono,
-                Sintomas: sintomas
             })
                 .then(function (docRef) {
                     //console.log("Documento escrito: ID: ", docRef.id);
@@ -84,11 +80,10 @@ function Guardar() {
     });
 }
 
-//Carga de las sillas 
+//Carga de las sillas se ejecutara al cambiar el dia 
 function CargarSillas() {
-    var bloque = document.getElementById("Bloque").value;
-    var dia = document.getElementById("Dia").value;
-    var sillas = document.getElementById("Silla");
+    let dia = document.getElementById("Dia").value;
+    let sillas = document.getElementById("Silla");
     sillas.options[0].selected = true;
     //limpiamos las sillas del bloque anterior para volverlo a llenar con las del nuevo bloque seleccionado
     for (i = sillas.options.length - 1; i > 0; i--) {
@@ -101,7 +96,7 @@ function CargarSillas() {
         var c = 0;
         querySnapshot.forEach((doc) => {
             //&& dia == doc.data().Dia
-            if (bloque == doc.data().Bloque && dia == doc.data().Dia) {
+            if (dia == doc.data().Dia) {
                 //console.log(dia);
                 //console.log(doc.data().Dia);
                 c = c + 1;
@@ -110,65 +105,43 @@ function CargarSillas() {
                 //console.log(sillasOcupadas[c]);
             }
         });
-        var bandera = 0;
-        var banderaSilla = '';
-        if (c == 15) {
-            alert("Este bloque ya se encuentra lleno.\rFavor seleccione otro.");
+
+        if (c == 60) {
+            alert("Este dia ya se encuentra lleno.\rFavor seleccione otro.");
         } else {
-
-            switch (bloque) {
-                case 'A':
-                    EnumeradorSillas(sillas, 1, bloque, 15, c, sillasOcupadas);
-                    break;
-
-                case 'B':
-                    EnumeradorSillas(sillas, 16, bloque, 30, c, sillasOcupadas);
-                    break;
-
-                case 'C':
-                    EnumeradorSillas(sillas, 31, bloque, 45, c, sillasOcupadas);
-                    break;
-
-                case 'D':
-                    EnumeradorSillas(sillas, 46, bloque, 60, c, sillasOcupadas);
-                    break;
-
+            let bandera = 0;
+            let banderaSilla = '';
+        
+            for (i = 0; i <= 60; i++) {
+                //recorremos el arreglo para encontrar si la silla en la que estamos esta ocupada
+                //Bandera igual a 1 nos dira que la silla esta ocupada
+                bandera = 0;
+                for (j = 1; j <= c; j++) {
+                    //console.log(i);
+                    banderaSilla = i.toString();
+                    if (banderaSilla == sillasOcupadas[j]) {
+                        bandera = 1;
+                    }
+                }
+                //si bandera se mantiene en 0 significa que la silla esta desocupada
+                //console.log(bloque);
+                if (bandera == 0) {
+                    //bloqletra = doc.data().Bloque;
+                    option = document.createElement("option");
+                    option.value = i.toString();
+                    option.text = "Silla " + i.toString();
+                    sillas.appendChild(option);
+                }
             }
+            sillas.options[0].selected = true;
+            
         }
 
     });
 
 }
 
-
-function EnumeradorSillas(sillas, cont, bloque, n, c, sillasOcupadas) {
-    var bandera = 0;
-    var banderaSilla = '';
-
-    for (i = cont; i <= n; i++) {
-        //recorremos el arreglo para encontrar si la silla en la que estamos esta ocupada
-        //Bandera igual a 1 nos dira que la silla esta ocupada
-        bandera = 0;
-        for (j = 1; j <= c; j++) {
-            //console.log(i);
-            banderaSilla = bloque + i.toString();
-            if (banderaSilla == sillasOcupadas[j]) {
-                bandera = 1;
-            }
-        }
-        //si bandera se mantiene en 0 significa que la silla esta desocupada
-        //console.log(bloque);
-        if (bandera == 0) {
-            //bloqletra = doc.data().Bloque;
-            option = document.createElement("option");
-            option.value = bloque + i.toString();
-            option.text = "Silla " + bloque + i.toString();
-            sillas.appendChild(option);
-        }
-    }
-    sillas.options[0].selected = true;
-}
-
+//Evalua 
 
 function EvaluarReunion2() {
     //Tomamos las fecha del sistema 
@@ -408,7 +381,7 @@ function EvaluarReunion2() {
 function Dias(total, domingosiguiente, domingoactual) {
 
     //console.log("Hola");
-    //si reunion es 1 significa que esta vacia
+    //si total es 1 significa que esta vacia
     //console.log(total);
     let dias = document.getElementById("Dia");
     for (i = dias.options.length - 1; i > 0; i--) {
@@ -448,53 +421,9 @@ function Dias(total, domingosiguiente, domingoactual) {
 
 }
 
-function Bloques(total) {
-    //console.log("Hola");
-    //si reunion es 1 significa que esta vacia
-    //console.log(total);
-    if (total == "1") {
-        var bloque = document.getElementById("Bloque");
-        for (i = bloque.options.length - 1; i > 0; i--) {
-            bloque.options[i] = null;
-        }
-
-        for (i = 1; i <= 4; i++) {
-            if (i == 1) {
-                //console.log("Hola");
-                option = document.createElement("option");
-                option.value = 'A';
-                option.text = 'Bloque A';
-                //console.log(option.text);
-                bloque.appendChild(option);
-            } else if (i == 2) {
-                // console.log("Hola");
-                option = document.createElement("option");
-                option.value = 'B';
-                option.text = 'Bloque B';
-                //console.log(option.text);
-                bloque.appendChild(option);
-            } else if (i == 3) {
-                //console.log("Hola");
-                option = document.createElement("option");
-                option.value = 'C';
-                option.text = 'Bloque C';
-                //console.log(option.text);
-                bloque.appendChild(option);
-            } else {
-                option = document.createElement("option");
-                option.value = 'D';
-                option.text = 'Bloque D';
-                //console.log(option.text);
-                bloque.appendChild(option);
-            }
-        }
-        bloque.options[0].selected = true;
-    }
-
-}
 
 //evaluamos si la reunion esta llena o vacias
-function EvaluarReunion() {
+/*function EvaluarReunion() {
 
 var dia = document.getElementById("Dia").value;
     db.collection("Reunion").onSnapshot((querySnapshot) => {
@@ -508,13 +437,13 @@ var dia = document.getElementById("Dia").value;
         //totalsillas = 60;
         if (totalsillas == 60) {
             alert("La reunion se encuentra llena");
-            Bloques("0");
+            //Bloques("0");
         } else {
-            Bloques("1");
+            //Bloques("1");
         }
 
     });
-}
+}*/
 
 //Borrar Datos 
 

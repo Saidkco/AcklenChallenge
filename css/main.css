@@ -169,11 +169,11 @@
   }
   
   .bg-gra-01 {
-    background: -webkit-gradient(linear, left bottom, left top, from(#00adef), to(#00adef));
-    background: -webkit-linear-gradient(bottom, #00adef 0%, #00adef 100%);
-    background: -moz-linear-gradient(bottom, #00adef 0%, #00adef 100%);
-    background: -o-linear-gradient(bottom, #00adef 0%, #00adef 100%);
-    background: linear-gradient(to top, #00adef 0%, #ffffff  100%);
+    background: -webkit-gradient(linear, left bottom, left top, from(#0045db), to(#0045db));
+    background: -webkit-linear-gradient(bottom, #001a89 0%, #0045db 100%);
+    background: -moz-linear-gradient(bottom, #001a89 0%, #00adef 100%);
+    background: -o-linear-gradient(bottom, #001a89 0%, #00adef 100%);
+    background: linear-gradient(to top, #001a89 0%, #ffffff  100%);
   }
   
   /* ==========================================================================
@@ -502,14 +502,14 @@
     -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
     -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
     box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
-    width: 100%;
+    width: 110%;
     display: table;
   }
   
   .card-3 .card-heading {
-    background: url("../images/ipunto.jpg") center /cover no-repeat;
+    background: url("../images/ministerio1.jpg") center /cover no-repeat;
     display: table-cell;
-    width: 50%;
+    width: 65%;
   }
   
   .card-3 .card-body {

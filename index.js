@@ -9,9 +9,7 @@ var path    = require("path");
 var locale = require("locale")
 , supported = ["en", "en_US","es", "es-US"]
 , default1 = "es";
-const accountSid = 'AC0f26788e366eced1740d45a34e5c8132'; 
-    const authToken = '27f004c23a0ce69af4e950a2cec3b21e'; 
-    const client = require('twilio')(accountSid, authToken); 
+
 
 //when have a request to the root load the home on the webside
 app.engine('html', require('ejs').renderFile);
@@ -30,12 +28,7 @@ app.use((req, res, next) => {
 
 app.get('/', (req,res) => {});
 
-app.post('/prueba', (req,res) => 
-{
-    
-
-});
-
+//The Whatsapp function to send the message
 app.post('/whatsapp_msg', (req,res) => 
 {
     console.log(req.body.mensaje);

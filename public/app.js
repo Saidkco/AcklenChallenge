@@ -1,4 +1,3 @@
-//console.log("agregado");
 var firebaseConfig = {
     apiKey: "AIzaSyBaJ3a2Ndf67f6_57em9Yn8lS3Ci4tpzzw",
     authDomain: "acklen-project.firebaseapp.com",
@@ -69,6 +68,7 @@ function Guardar() {
                     document.getElementById("Identidad").value = '';
                     document.getElementById("Dia").value = '';
                     document.getElementById("Telefono").value = '';
+                    EvaluarReunion();
                     mensaje("Se ingreso un nuevo miembro");
                     location.reload();                  
                     alert("Registro ingresado exitosamente, no olvides llevar tu mascarilla \r¡Te esperamos...!");
@@ -93,20 +93,6 @@ const mensaje = (tmensaje) => {
     });
 }
 
-$('#server').on('click',function () {
-console.log('perron');
-const mensaje = "Perronsisimo";
-$.ajax({
-    url:"/prueba",
-    method: "POST",
-    data:"mensaje="+ mensaje,
-    datatype: 'json',
-    success:function(respuesta){
-        console.log('fck que buena', respuesta);
-    }
-});
-});
-
 //Carga de las sillas se ejecutara al cambiar el dia 
 function CargarSillas() {
     let dia = document.getElementById("Dia").value;
@@ -122,14 +108,9 @@ function CargarSillas() {
         var sillasOcupadas = new Array();
         var c = 0;
         querySnapshot.forEach((doc) => {
-            //&& dia == doc.data().Dia
             if (dia == doc.data().Dia) {
-                //console.log(dia);
-                //console.log(doc.data().Dia);
                 c = c + 1;
                 sillasOcupadas[c] = doc.data().Silla;
-                //console.log(c);
-                //console.log(sillasOcupadas[c]);
             }
         });
 
@@ -144,16 +125,13 @@ function CargarSillas() {
                 //Bandera igual a 1 nos dira que la silla esta ocupada
                 bandera = 0;
                 for (j = 1; j <= c; j++) {
-                    //console.log(i);
                     banderaSilla = i.toString();
                     if (banderaSilla == sillasOcupadas[j]) {
                         bandera = 1;
                     }
                 }
                 //si bandera se mantiene en 0 significa que la silla esta desocupada
-                //console.log(bloque);
                 if (bandera == 0) {
-                    //bloqletra = doc.data().Bloque;
                     option = document.createElement("option");
                     option.value = i.toString();
                     option.text = "Silla " + i.toString();
@@ -186,21 +164,16 @@ function EvaluarReunion2() {
     db.collection("Reunion").onSnapshot((querySnapshot) => {
         //Vamos a recorrer para asignar al arreglo
         let totalsillas = 0;
-        //console.log(diaSactual);
-        //console.lo();
         //Evaluamos el dia de la semana 
         switch (diaSactual) {
             case 0:
                 domingoactual = diaActual;
-                // console.log(domingoactual);
                 break;
             case 1:
                 domingoactual = diaActual + 6;
-                //console.log(domingoactual);
                 break;
             case 2:
                 domingoactual = diaActual + 5;
-                //console.log(domingoactual);
                 break;
             case 3:
                 domingoactual = diaActual + 4;
@@ -229,80 +202,65 @@ function EvaluarReunion2() {
                 if (domingoactual > 30) {
                     domingoactual = domingoactual - 30;
                 }
-                // console.log(domingoactual);
                 break;
             case 8:
                 if (domingoactual > 30) {
                     domingoactual = domingoactual - 30;
                 }
-                // console.log(domingoactual);
                 break;
             case 10:
                 if (domingoactual > 30) {
                     domingoactual = domingoactual - 30;
                 }
-                // console.log(domingoactual);
                 break;
             case 5:
                 if (domingoactual > 30) {
                     domingoactual = domingoactual - 30;
                 }
-                // console.log(domingoactual);
                 break;
 
             //meses con 31 dias 
             case 0:
-                //console.log("Deberia pasar por aqui");
                 if (domingoactual > 31) {
                     domingoactual = domingoactual - 31;
                 }
                 break;
             case 2:
-                //console.log("Deberia pasar por aqui");
                 if (domingoactual > 31) {
                     domingoactual = domingoactual - 31;
                 }
                 break;
             case 4:
-                //console.log("Deberia pasar por aqui");
                 if (domingoactual > 31) {
                     domingoactual = domingoactual - 31;
                 }
                 break;
             case 6:
-                //console.log("Deberia pasar por aqui");
                 if (domingoactual > 31) {
                     domingoactual = domingoactual - 31;
                 }
                 break;
             case 7:
-                //console.log("Deberia pasar por aqui");
                 if (domingoactual > 31) {
                     domingoactual = domingoactual - 31;
                 }
                 break;
             case 9:
-                //console.log("Deberia pasar por aqui");
                 if (domingoactual > 31) {
                     domingoactual = domingoactual - 31;
                 }
                 break;
             case 11:
-                //console.log("Deberia pasar por aqui");
                 if (domingoactual > 31) {
                     domingoactual = domingoactual - 31;
                 }
                 break;
-
         }
-
         //obtenemos el domingo actual para luego hacer el domingo siguiente
 
         domingosiguiente = domingoactual + 7;
 
         //evaluamos el mes para saber que mes es y asi saber cuales tienen 30 o 31 dias 
-        // console.log("Antes de evaluar los meses");
-
         switch (mesActual) {
             //febrero con 28 dias 
             case 1:
@@ -315,66 +273,55 @@ function EvaluarReunion2() {
                 if (domingosiguiente > 30) {
                     domingosiguiente = domingosiguiente - 30;
                 }
-                // console.log(domingoactual);
                 break;
             case 8:
                 if (domingosiguiente > 30) {
                     domingosiguiente = domingosiguiente - 30;
                 }
-                // console.log(domingoactual);
                 break;
             case 10:
                 if (domingosiguiente > 30) {
                     domingosiguiente = domingosiguiente - 30;
                 }
-                // console.log(domingoactual);
                 break;
             case 5:
                 if (domingosiguiente > 30) {
                     domingosiguiente = domingosiguiente - 30;
                 }
-                // console.log(domingoactual);
                 break;
 
             //meses con 31 dias 
             case 0:
-                //console.log("Deberia pasar por aqui");
                 if (domingosiguiente > 31) {
                     domingosiguiente = domingosiguiente - 31;
                 }
                 break;
             case 2:
-                //console.log("Deberia pasar por aqui");
                 if (domingosiguiente > 31) {
                     domingosiguiente = domingosiguiente - 31;
                 }
                 break;
             case 4:
-                //console.log("Deberia pasar por aqui");
                 if (domingosiguiente > 31) {
                     domingosiguiente = domingosiguiente - 31;
                 }
                 break;
             case 6:
-                //console.log("Deberia pasar por aqui");
                 if (domingosiguiente > 31) {
                     domingosiguiente = domingosiguiente - 31;
                 }
                 break;
             case 7:
-                //console.log("Deberia pasar por aqui");
                 if (domingosiguiente > 31) {
                     domingosiguiente = domingosiguiente - 31;
                 }
                 break;
             case 9:
-                //console.log("Deberia pasar por aqui");
                 if (domingosiguiente > 31) {
                     domingosiguiente = domingosiguiente - 31;
                 }
                 break;
             case 11:
-                //console.log("Deberia pasar por aqui");
                 if (domingosiguiente > 31) {
                     domingosiguiente = domingosiguiente - 31;
                 }
@@ -390,8 +337,6 @@ function EvaluarReunion2() {
             }
         });
 
-        //totalsillas = 60;
-        //console.log("Imprimiento las sillas ocupadas = " + totalsillas);
         if (totalsillas == 60) {
             if(contador == 0){
             alert("La Reunion del Domingo " + domingoactual + " esta llena. \rSeleccionar la siguiente Reunion");
@@ -407,36 +352,25 @@ function EvaluarReunion2() {
 
 function Dias(total, domingosiguiente, domingoactual) {
 
-    //console.log("Hola");
     //si total es 1 significa que esta vacia
-    //console.log(total);
     let dias = document.getElementById("Dia");
     for (i = dias.options.length - 1; i > 0; i--) {
         dias.options[i] = null;
     }
 
-    //console.log(domingosiguiente);
-
     for (i = 1; i <= 2; i++) {
         if (i == 1) {
-            //console.log("Hola");
             option = document.createElement("option");
             option.value = 'D' + domingoactual.toString();
             option.text = 'Domingo ' + domingoactual.toString();
-            //console.log(option.text);
-            // console.log(option.value);
             dias.appendChild(option);
         } else if (i == 2) {
-            // console.log("Hola");
             option = document.createElement("option");
             option.value = 'D' + domingosiguiente.toString();
             option.text = 'Domingo ' + domingosiguiente.toString();
-            //console.log(option.text);
-            //console.log(option.value);
             dias.appendChild(option);
         }
     }
-    // dias.options[0].selected = true;
 
     if (total == "1") {
         dias.options[0].selected = true;
@@ -450,9 +384,9 @@ function Dias(total, domingosiguiente, domingoactual) {
 
 
 //evaluamos si la reunion esta llena o vacias
-/*function EvaluarReunion() {
+function EvaluarReunion() {
 
-var dia = document.getElementById("Dia").value;
+let dia = document.getElementById("Dia").value;
     db.collection("Reunion").onSnapshot((querySnapshot) => {
         //Vamos a recorrer para asignar al arreglo
         var totalsillas = 0;
@@ -461,61 +395,9 @@ var dia = document.getElementById("Dia").value;
             totalsillas = totalsillas + 1;
             }
         });
-        //totalsillas = 60;
+        //totalsillas = 60 means that the reunion is full
         if (totalsillas == 60) {
-            alert("La reunion se encuentra llena");
-            //Bloques("0");
-        } else {
-            //Bloques("1");
+            mensaje("La reunion esta llena");
         }
-
-    });
-}*/
-
-//Borrar Datos 
-
-function Eliminar(id) {
-    db.collection("Datos").doc(id).delete().then(function () {
-        console.log("Document successfully deleted!");
-    }).catch(function (error) {
-        console.error("Error removing document: ", error);
     });
 }
-
-/*Actualizar
-
-function Actualizar(id, n, a, t) {
-
-    document.getElementById("Nombre").value = n;
-    document.getElementById("Apellido").value = a;
-    document.getElementById("Telefono").value = t;
-
-    var boton = document.getElementById('boton');
-    boton.innerHTML = "Editar";
-
-    boton.onclick = function () {
-        var Ref = db.collection("Datos").doc(id);
-
-        var nombre = document.getElementById("Nombre").value;
-        var apellido = document.getElementById("Apellido").value;
-        var telefono = document.getElementById("Telefono").value;
-
-
-        return Ref.update({
-            first: nombre,
-            last: apellido,
-            phone: telefono
-        })
-            .then(function () {
-                console.log("Document successfully updated!");
-                boton.innerHTML = "Guardar";
-                document.getElementById("Nombre").value = '';
-                document.getElementById("Apellido").value = '';
-                document.getElementById("Telefono").value = '';
-            })
-            .catch(function (error) {
-                // The document probably doesn't exist.
-                console.error("Error updating document: ", error);
-            });
-    }
-}*/

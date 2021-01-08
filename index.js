@@ -9,6 +9,9 @@ var path    = require("path");
 var locale = require("locale")
 , supported = ["en", "en_US","es", "es-US"]
 , default1 = "es";
+require('dotenv').config({path:'variables.env'});
+const {ACCOUNT_SID, AUTH_TOKEN} = process.env;
+const client = require('twilio')(ACCOUNT_SID, AUTH_TOKEN);
 
 //when have a request to the root load the home on the webside
 app.engine('html', require('ejs').renderFile);
@@ -25,8 +28,8 @@ app.use((req, res, next) => {
     next();
 });
 
-app.get('/', (req,res) => {});
-
+app.get('/', (req,res) => {
+});
 //The Whatsapp function to send the message
 app.post('/whatsapp_msg', (req,res) => 
 {

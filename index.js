@@ -10,7 +10,6 @@ var locale = require("locale")
 , supported = ["en", "en_US","es", "es-US"]
 , default1 = "es";
 
-
 //when have a request to the root load the home on the webside
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
@@ -31,7 +30,6 @@ app.get('/', (req,res) => {});
 //The Whatsapp function to send the message
 app.post('/whatsapp_msg', (req,res) => 
 {
-    console.log(req.body.mensaje);
     client.messages 
     .create({ 
        body: req.body.mensaje, 

@@ -1,4 +1,4 @@
-var firebaseConfig = {
+const firebaseConfig = {
     apiKey: "AIzaSyBaJ3a2Ndf67f6_57em9Yn8lS3Ci4tpzzw",
     authDomain: "acklen-project.firebaseapp.com",
     projectId: "acklen-project",

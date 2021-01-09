@@ -219,7 +219,9 @@
      #WRAPPER
      ========================================================================== */
   .wrapper {
-    margin: 0 auto;
+    
+    margin-left: 21%;
+position: center;
   }
   
   .wrapper--w960 {
@@ -513,7 +515,7 @@
   }
   
   .card-3 .card-body {
-    padding: 57px 65px;
+    padding: 10px 65px;
     padding-bottom: 65px;
     display: table-cell;
   }

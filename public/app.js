@@ -30,23 +30,18 @@ function Guardar() {
     db.collection("Reunion").get().then((querySnapshot) => {
         let id = 0;
         let idsOcupados = new Array();
-        //var idsOcupados = new Array();
         //Vamos a recorrer para asignar al arreglo
         querySnapshot.forEach((doc) => {
-            //console.log(identidad);
-            //console.log(doc.data().Identidad);
             id = id + 1;
             idsOcupados[id] = doc.data().Identidad;
-            //console.log(idsOcupados[id]);
         });
-
+// identify the flag
         for (i = 1; i <= id; i++) {
-            //console.log(idsOcupados[i]);
             if (identidad == idsOcupados[i]) {
                 banderaID = banderaID + 2;
             }
         }
-        
+        //evaluate the flag to know if the ID is already used
         if (banderaID > 0) {
             location.reload();
             alert("Usted ya fue registrado para esta Reunion");
@@ -61,7 +56,6 @@ function Guardar() {
                 Telefono: telefono,
             })
                 .then(function (docRef) {
-                    //console.log("Documento escrito: ID: ", docRef.id);
                     document.getElementById("Nombre").value = '';
                     document.getElementById("Apellido").value = '';
                     document.getElementById("Edad").value = '';

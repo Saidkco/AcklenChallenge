@@ -9,6 +9,7 @@ var path    = require("path");
 var locale = require("locale")
 , supported = ["en", "en_US","es", "es-US"]
 , default1 = "es";
+
 require('dotenv').config({path:'variables.env'});
 const {ACCOUNT_SID, AUTH_TOKEN} = process.env;
 const client = require('twilio')(ACCOUNT_SID, AUTH_TOKEN);
@@ -43,6 +44,5 @@ app.post('/whatsapp_msg', (req,res) =>
     .done();
 
 });
-
 
 app.listen(process.env.PORT || 2020);
